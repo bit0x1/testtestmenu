@@ -182,7 +182,10 @@ html[lang=en] .badge{font-family:system-ui,sans-serif;font-size:10px;border-radi
 #ordh b{flex:1;font-weight:700}
 #orl{max-height:min(38vh,260px);overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 #orl li{display:flex;align-items:baseline;gap:6px;list-style:none;font-size:13px;line-height:1.7}
-#orl .on{flex:none;min-width:20px;font-weight:700}
+#orl .on{flex:none;min-width:26px;font-weight:700;text-align:center;border-radius:10px 4px;border:1.5px solid transparent;cursor:pointer;user-select:none;padding:1px 4px;transition:background .18s,border-color .18s,color .18s}
+#orl .on:hover,#orl .on:focus-visible{border-color:var(--ink);background:color-mix(in srgb,var(--ink) 10%,transparent);outline:none}
+#orl .on:active{background:var(--ink);color:var(--bg)}
+#ordclr{opacity:.8}
 #orl .ot{flex:1;min-width:0}
 #orl .od{flex:none;white-space:nowrap;font-family:'Aref Ruqaa',serif;font-size:15px}
 #ordf{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
@@ -276,7 +279,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dotted var(
 <path d="M111 96V82a9 9 0 0 1 18 0V96"/><path d="M108 56H132M108 66H112M128 66H132"/><path d="M24 66H94M146 66H216" stroke-dasharray="1 4"/>
 <circle cx="120" cy="36" r="10.5"/><path d="M120 27.5v2M120 42.5v2M111.5 36h2M126.5 36h2" stroke-width="1"/>
 <line id="hh" x1="120" y1="36" x2="120" y2="31" stroke-width="1.8"/><line id="mh" x1="120" y1="36" x2="120" y2="29" stroke-width="1.2"/><line id="shd" x1="120" y1="38" x2="120" y2="28.5" stroke-width=".6"/><circle cx="120" cy="36" r="1" fill="currentColor"/>
-</svg><div id="ord"><div id="ordh"><b id="ordt"></b><button id="ordx" type="button" aria-label="بستن">✕</button></div><ul id="orl"></ul><div id="ordf"><span id="ordsum"></span><button id="ordcp" type="button"></button><button id="ordwa" type="button"></button><button id="ordcl" type="button"></button></div><p id="ordnote"></p><textarea id="ordta" rows="2" hidden></textarea></div><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
+</svg><div id="ord"><div id="ordh"><b id="ordt"></b><button id="ordx" type="button" aria-label="بستن">✕</button></div><ul id="orl"></ul><div id="ordf"><span id="ordsum"></span><button id="ordcp" type="button"></button><button id="ordwa" type="button"></button><button id="ordclr" type="button"></button><button id="ordcl" type="button"></button></div><p id="ordnote"></p><textarea id="ordta" rows="2" hidden></textarea></div><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
 <script>
 const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 // item: [name, desc, price | [[label,price],...]]
@@ -285,18 +288,27 @@ const EN={"b":{"t":"Breakfast","s":"Breakfast is served from 8:00 am to 12:30 pm
 let FEN=[['Ash-e Muzeh','a grandmother\'s recipe from eastern Gilan'],['Muzeh Traditional Omelette','with seasoned tomato purée'],['Shami Meat Wrap','with handmade tanoori bread'],['Muzeh Tea','saffron, cardamom, cinnamon & more'],['Muzeh Mojito','pineapple pieces & coconut syrup'],['Doogh Muzeh','traditional cold drink']];
 const LBL={'متوسط':'Medium','بزرگ':'Large','دو تکه':'2 pcs','چهار تکه':'4 pcs'};
 // ===== پیشنهاد امروز · الگوریتم انتخاب: چرخش روزانه (وزیت/خاور‌شمار) روی آیتم‌های «موزه‌ای» که موجود و دارای قیمت‌اند =====
+// اگر مسئول کافه در برنامهٔ ویرایش قیمت، آیتمی را به‌عنوان «پیشنهاد امروز» علامت بزند، همان آیتم (PICK) اولویت مطلق دارد.
 const hashStr=s=>{let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0};
 const firstPrice=p=>Array.isArray(p)?firstPrice(p[0]&&p[0][1]):(typeof p==='number'?p:0);
+let PICK=null;
+function findItem(name){let out=null;M.forEach(s=>s.i.forEach((it,j)=>{if(!out&&it[0]===name)out={id:s.id,j}}));return out}
 function dailyPick(){const sd=(()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(new Date()).replace(/-/g,'')}catch(e){const d=new Date();return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')}})();
+  if(PICK){const f=findItem(PICK);if(f){const it=M.find(s=>s.id===f.id).i[f.j];if(!it[3]&&firstPrice(it[2]))return f}}
   const c=[];M.forEach(s=>s.i.forEach((it,j)=>{if(it[3])return;if(!/موزه/.test(it[0]))return;if(!firstPrice(it[2]))return;c.push({id:s.id,j})}));if(!c.length)return null;return c[hashStr(sd+'|'+c.map(x=>x.id+x.j).join('-'))%c.length]}
 let TODAY=dailyPick();
 // ===== سبد سفارش مشتری · ذخیره محلی، بدون سرور / customer order cart, stored locally =====
 let ORD=[];try{ORD=JSON.parse(localStorage.getItem('ord')||'[]')}catch(e){ORD=[]}
 if(!Array.isArray(ORD))ORD=[];
-const saveOrd=()=>{try{localStorage.setItem('ord',JSON.stringify(ORD))}catch(e){}};
+const saveOrd=()=>{try{localStorage.setItem('ord',JSON.stringify(ORD));localStorage.setItem('ordAt',String(Date.now()))}catch(e){}};
+// انقراض سبد: اگر آخرین تغییر بیشتر از ORD_TTL ساعت پیش باشد، لیست در باز بعدی خالی است (سبدِ دیشب به امروز نمی‌چسبد)
+const ORD_TTL_H=12;
+(function(){try{const t=+localStorage.getItem('ordAt')||0;if(t&&Date.now()-t>ORD_TTL_H*3600e3){ORD=[];localStorage.removeItem('ord');localStorage.removeItem('ordAt')}}catch(e){}})();
 const ordCount=()=>ORD.reduce((a,x)=>a+(x.q||1),0);
 const ordSum=()=>ORD.reduce((a,x)=>a+(x.p||0)*(x.q||1),0);
 function addOrd(o){o.q=(o.q||0)+1;ORD.push(o);saveOrd();renderOrd(true)}
+// یک‌بار اضافه شدن با لمس؛ تعداد زیاد شد → کلیک روی عدد همان ردیف یکی کم می‌کند (حذف دکمهٔ «+» از لیست)
+function addOrMerge(k,t,te,l,le,p){const ex=ORD.find(x=>x.k===k&&x.l===(l||''));if(ex)ex.q=(ex.q||1)+1;else ORD.push({k:k,t:t,te:te,l:l||'',le:le||'',p:p,q:1});saveOrd();renderOrd(true)}
 const reduceMotion=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
 function renderOrd(pop){const U=UI[L],el=$('ord');
   if(!ORD.length){el.classList.remove('open','pop');document.querySelectorAll('.added').forEach(b=>b.classList.remove('added'));return}
@@ -304,8 +316,9 @@ function renderOrd(pop){const U=UI[L],el=$('ord');
   el.classList.add('open');
   if(wasHidden&&!reduceMotion()){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),620)}
   $('ordt').textContent=U.ordt;
-  $('orl').innerHTML=ORD.map((x,i)=>`<li style="--i:${i}"><span class="on">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span><button class="fbt" data-inc="${i}" type="button" aria-label="${U.ordinc}"></button><button class="fbt" data-del="${i}" type="button" aria-label="${U.orddel}">−</button></li>`).join('');
+  $('orl').innerHTML=ORD.map((x,i)=>`<li style="--i:${i}"><span class="on" data-qty="${i}" role="button" tabindex="0" title="${U.orddel}" aria-label="${U.orddel}">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span></li>`).join('');
   $('ordsum').textContent=U.ordsum.replace('{n}',fa(ordCount())).replace('{s}',num(ordSum()));
+  const cb=$('ordclr');if(cb){cb.hidden=!ORD.length;cb.textContent=U.ordclr}
   $('ordcp').textContent=U.ordcp;$('ordwa').textContent=U.ordwa;$('ordcl').textContent=U.ordcl;$('ordnote').textContent=U.ordnote;$('ordta').placeholder=U.ordph;
   if(pop&&navigator.vibrate)try{navigator.vibrate(8)}catch(e){}}
 function ordText(){const en=L==='en';let s=en?'Order · Café Muzeh\n':'سفارش · کافه موزه\n';
@@ -337,8 +350,8 @@ function renderContact(){const c=CONTACT,en=L==='en',ad=en?(c.address_en||c.addr
   if(c.phone)b.push(`<a href="tel:${c.phone}">${en?'Call':'تماس'}</a>`);
   if(c.instagram)b.push(`<a href="https://instagram.com/${c.instagram.replace(/^@/,'')}" target="_blank" rel="noopener">${en?'Instagram':'اینستاگرام'}</a>`);
   $('ct').innerHTML=(ad||hr||b.length)?`${ad?`<p>${ad}</p>`:''}${hr?`<p>${hr}</p>`:''}<div class="cb">${b.join('')}</div>`:''}
-const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده',tdy:'پیشنهاد امروز',add:'افزودن به سفارش',ordt:'سفارش شما',ordsum:'{n} قلم · جمع {s}',ordcp:'کپی سفارش',ordwa:'ارسال با واتساپ',ordcl:'پاک کردن',orddone:'کپی شد ✓',ordnote:'این لیست فقط در گوشی شما ذخیره می‌شود و برای ما ارسال نمی‌گردد. کپی کنید و برای کافه بفرستید.',ordph:'یادداشت (کم‌قند، بدون پیاز…)',orddel:'حذف یک عدد',ordinc:'افزودن یکی دیگر'},
-en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out',tdy:"Today's pick",add:'Add to order',ordt:'Your order',ordsum:'{n} items · total {s}',ordcp:'Copy order',ordwa:'Send via WhatsApp',ordcl:'Clear',orddone:'Copied ✓',ordnote:'This list is saved only on your device and is not sent anywhere. Copy it and send it to the café.',ordph:'Note (less sugar, no onion…)',orddel:'Remove one',ordinc:'Add one more'}};
+const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده',tdy:'پیشنهاد امروز',add:'افزودن به سفارش',ordt:'سفارش شما',ordsum:'{n} قلم · جمع {s}',ordcp:'کپی سفارش',ordwa:'ارسال با واتساپ',ordcl:'پاک کردن',orddone:'کپی شد ✓',ordnote:'این لیست فقط در گوشی شما ذخیره می‌شود و برای ما ارسال نمی‌گردد. کپی کنید و برای کافه بفرستید.',ordph:'یادداشت (کم‌قند، بدون پیاز…)',ordclr:'خالی کردن لیست',orddel:'حذف یک عدد',ordinc:'افزودن یکی دیگر'},
+en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out',tdy:"Today's pick",add:'Add to order',ordt:'Your order',ordsum:'{n} items · total {s}',ordcp:'Copy order',ordwa:'Send via WhatsApp',ordcl:'Clear',orddone:'Copied ✓',ordnote:'This list is saved only on your device and is not sent anywhere. Copy it and send it to the café.',ordph:'Note (less sugar, no onion…)',ordclr:'Clear list',orddel:'Remove one',ordinc:'Add one more'}};
 let L='fa';try{L=localStorage.getItem('lang')||'fa'}catch(e){}
 const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const num=n=>L==='fa'?fa(n):String(n);
@@ -405,13 +418,10 @@ $('q').addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase();
 // ===== سبد سفارش · رویدادها / order cart events =====
 function tapFx(el){if(!el||reduceMotion())return;el.classList.remove('tapfx');void el.offsetWidth;el.classList.add('tapfx');setTimeout(()=>el.classList.remove('tapfx'),520)}
 function addFromEl(b){const p=+b.dataset.p;if(!p)return;
-  const k=b.dataset.k||'',ex=ORD.find(x=>x.k===k&&x.l===(b.dataset.l||''));
-  if(ex)ex.q=(ex.q||1)+1;else ORD.push({k:k,t:b.dataset.t||'',te:b.dataset.te||'',l:b.dataset.l||'',le:b.dataset.le||'',p:p,q:1});
-  saveOrd();renderOrd(true)}
+  addOrMerge(b.dataset.k||'',b.dataset.t||'',b.dataset.te||'',b.dataset.l||'',b.dataset.le||'',p)}
 document.addEventListener('click',e=>{
-  const inc=e.target.closest('.fbt[data-inc]');if(inc){const x=ORD[+inc.dataset.inc];if(x){x.q=(x.q||1)+1;saveOrd();renderOrd(true)}return}
-  const del=e.target.closest('.fbt[data-del]');if(del){const i=+del.dataset.del,x=ORD[i];if(!x)return;
-    x.q--;if(x.q<=0)ORD.splice(i,1);saveOrd();renderOrd();return}
+  const qy=e.target.closest('[data-qty]');if(qy){const i=+qy.dataset.qty,x=ORD[i];if(!x)return;
+    x.q--;if(x.q<=0)ORD.splice(i,1);saveOrd();renderOrd();tapFx(qy);return}
   const b=e.target.closest('.fbt[data-add]');if(b){if(!b.disabled)addFromEl(b);return}
   const pk=e.target.closest('.p.pick');if(pk){tapFx(pk.closest('.it')||pk);addFromEl(pk);return}
   const it=e.target.closest('.it.pick,.fc.pick');if(it&&!e.target.closest('.fbt')){
@@ -425,10 +435,12 @@ document.addEventListener('click',e=>{
       if(navigator.vibrate)try{navigator.vibrate(8)}catch(x){}}}
   if(e.target.closest('#ordcp')){copyOrd();return}
   if(e.target.closest('#ordwa')){waOrd();return}
+  if(e.target.closest('#ordclr')){if(!ORD.length)return;if(!confirm(UI[L].ordclr+'؟'))return;ORD=[];saveOrd();$('ordta').value='';try{localStorage.removeItem('ordAt')}catch(e){}renderOrd();return}
   if(e.target.closest('#ordcl')){ORD=[];saveOrd();$('ordta').value='';renderOrd();return}
   if(e.target.closest('#ordx')){$('ord').classList.remove('open','pop');return}
   if(e.target.closest('#ordsum')){const ta=$('ordta');ta.hidden=!ta.hidden;if(!ta.hidden)ta.focus();return}});
 document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;
+  const qy=e.target.closest('[data-qty]');if(qy){e.preventDefault();qy.click();return}
   const el=e.target.closest('.it.pick[role="button"],.fc.pick,.p.pick');if(!el)return;e.preventDefault();addFromEl(el)});
 $('ordta').addEventListener('input',()=>{try{localStorage.setItem('ordnote',$('ordta').value)}catch(e){}});
 try{$('ordta').value=localStorage.getItem('ordnote')||''}catch(e){}
@@ -446,10 +458,11 @@ const LOCAL_PRICES='prices.json';
 async function loadLocalPrices(){
   try{const r=await fetch(LOCAL_PRICES+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;
     const j=await r.json();let n=0;
-    M.forEach(s=>s.i.forEach(it=>{const v=j[it[0]];if(v===undefined)return;
+    if(typeof j._pick==='string')PICK=j._pick;
+    M.forEach(s=>s.i.forEach(it=>{if(it[0]==='_pick')return;const v=j[it[0]];if(v===undefined)return;
       if(v==='soldout'){it[3]=1;n++;return}
       it[2]=v;it[3]=0;n++}));
-    if(n){TODAY=dailyPick();render()}
+    TODAY=dailyPick();render()
   }catch(e){/* آفلاین کامل: همان قیمت‌های کش‌شده/داخل صفحه */}
 }
 function parseCSV(t){const R=[];let r=[],c='',q=false;t=t.replace(/^\uFEFF/,'');
