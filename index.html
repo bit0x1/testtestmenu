@@ -405,9 +405,25 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;
 $('ordta').addEventListener('input',()=>{try{localStorage.setItem('ordnote',$('ordta').value)}catch(e){}});
 try{$('ordta').value=localStorage.getItem('ordnote')||''}catch(e){}
 
-// ===== Google Sheet / Excel link =====
-// 1) Upload menu-data.xlsx to Google Sheets  2) File > Share > Publish to web > choose the "menu" tab + CSV  3) paste the link below.const SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vSO11P7ViuJEUiE6ysAJV8MRdE67ZF1cylqV4ByFjTwtyHTmrg5huOwmINHB820S9bBTLWPoRHi5-Oh/pub?gid=930174820&single=true&output=csv';
- const SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vSO11P7ViuJEUiE6ysAJV8MRdE67ZF1cylqV4ByFjTwtyHTmrg5huOwmINHB820S9bBTLWPoRHi5-Oh/pub?gid=930174820&single=true&output=csv';
+// ===== دو راه قیمت‌ها / two price sources =====
+// راه ۱ (اینترنت عادی): لینک CSV گوگل‌شیت — اکسل را در Google Sheets آپلود و Publish to web > CSV کنید.
+const SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vSO11P7ViuJEUiE6ysAJV8MRdE67ZF1cylqV4ByFjTwtyHTmrg5huOwmINHB820S9bBTLWPoRHi5-Oh/pub?gid=930174820&single=true&output=csv';
+// راه ۲ (قطعی اینترنت / سرور داخلی): فایل prices.json کنار همین index.html بگذارید.
+// روی سرور داخلی (مثلاً Raspberry Pi یا هر PC در کافه) فقط یک فایل استاتیک سرو کنید؛ لازم نیست چیزی «درست» شود:
+//   python -m http.server 8080   →   http://IP-سرور:8080
+// ساختار prices.json = آبجکتیو به نام آیتم (فارسی) → قیمت جدید (به هزار تومان). نمونه:
+//   {"اسپرسو":[["",330],["",280]],"کاپوچینو":360,"سوپ سفید":"soldout"}
+// اولویت: گوگل‌شیت > prices.json > قیمت‌های داخل صفحه. اگر خط JSON باشد، منو با آخرین قیمت معتبر کار می‌کند.
+const LOCAL_PRICES='prices.json';
+async function loadLocalPrices(){
+  try{const r=await fetch(LOCAL_PRICES+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;
+    const j=await r.json();let n=0;
+    M.forEach(s=>s.i.forEach(it=>{const v=j[it[0]];if(v===undefined)return;
+      if(v==='soldout'){it[3]=1;n++;return}
+      it[2]=v;it[3]=0;n++}));
+    if(n){TODAY=dailyPick();render()}
+  }catch(e){/* آفلاین کامل: همان قیمت‌های کش‌شده/داخل صفحه */}
+}
 function parseCSV(t){const R=[];let r=[],c='',q=false;t=t.replace(/^\uFEFF/,'');
   for(let i=0;i<t.length;i++){const ch=t[i];
     if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
@@ -434,7 +450,7 @@ function applyRows(rows){
 async function loadSheet(){if(!SHEET_CSV)return;
   try{const r=await fetch(SHEET_CSV+(SHEET_CSV.includes('?')?'&':'?')+'t='+Date.now());
     if(r.ok&&applyRows(parseCSV(await r.text())))render()}catch(e){}}
-render();loadSheet();
+render();loadLocalPrices();loadSheet();
 // ===== کشایه‌ی محلی منو (کارکرد آفلاین بعد از اولین باز شدن) / offline cache of the sheet =====
 if('serviceWorker' in navigator&&navigator.serviceWorker&&navigator.serviceWorker.register){
   try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
