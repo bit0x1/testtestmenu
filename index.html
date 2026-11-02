@@ -163,22 +163,24 @@ html[lang=en] .meta .seal{font-size:8.5px}
 html[lang=en] .badge{font-family:system-ui,sans-serif;font-size:10px;border-radius:4px 12px}
 .fc.today{border:1.5px solid var(--ink);box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 4.5px var(--line)}
 .fc small{display:block}
+/* لینک‌های «ویژه‌های موزه» مثل بقیهٔ متن منو هستند، نه آبی/زیرخط‌دار */
+.fc a,.fc a:visited,.fc a:hover,.lgd a:visited,.lgd a:hover{color:inherit;text-decoration:none}
 .fbt{flex:none;display:inline-grid;place-content:center;width:26px;height:26px;margin-inline-start:8px;padding:0;border:1.5px solid var(--ink);border-radius:50%;background:none;color:var(--ink);font:inherit;font-size:17px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .18s,background .2s}
 .fbt[data-inc]{background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5v14M5 12h14' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/13px 13px no-repeat;border-color:var(--ink)}
 .fbt:hover{background:color-mix(in srgb,var(--ink) 12%,transparent)}
 .fbt[data-inc]:hover{background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5v14M5 12h14' stroke='%23000' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/13px 13px no-repeat}
 .fbt:active{transform:scale(.86)}
 @media (hover:none){.fbt{width:32px;height:32px;font-size:19px}}
-#ord{position:fixed;left:14px;right:14px;bottom:14px;z-index:20;max-width:520px;margin:0 auto;padding:11px 14px 12px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:22px 8px;box-shadow:0 10px 30px rgba(0,0,0,.22);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;transform:translateY(calc(100% + 26px));opacity:0;pointer-events:none;visibility:hidden;transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .3s ease,visibility 0s linear .42s}
-#ord.open{transform:none;opacity:1;pointer-events:auto;visibility:visible;transition:transform .42s cubic-bezier(.22,1,.36,1),opacity .3s ease,visibility 0s}
-#ord.pop{animation:ordpop .45s cubic-bezier(.22,1,.36,1)}
-@keyframes ordpop{from{transform:translateY(10px)}to{transform:none}}
-#orl li{animation:ordli .3s ease both}
-@keyframes ordli{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+#ord{position:fixed;left:14px;right:14px;bottom:14px;z-index:20;max-width:520px;margin:0 auto;padding:11px 14px 12px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:22px 8px;box-shadow:0 10px 30px rgba(0,0,0,.22);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;transform:translateY(calc(100% + 26px));opacity:0;pointer-events:none;visibility:hidden;transition:transform .55s cubic-bezier(.22,.9,.24,1),opacity .4s ease,visibility 0s linear .55s}
+#ord.open{transform:none;opacity:1;pointer-events:auto;visibility:visible;transition:transform .55s cubic-bezier(.22,.9,.24,1),opacity .4s ease,visibility 0s}
+#ord.pop{animation:ordpop .6s cubic-bezier(.22,.9,.24,1)}
+@keyframes ordpop{from{transform:translateY(14px)}to{transform:none}}
+#orl li{animation:ordli .45s cubic-bezier(.22,.9,.24,1) both;animation-delay:calc(var(--i,0)*65ms)}
+@keyframes ordli{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){#ord,#orl li{transition:none;animation:none;transform:none;opacity:1}}
 #ordh{display:flex;align-items:center;gap:8px;font-family:'Aref Ruqaa',serif;font-size:19px;margin-bottom:6px}
 #ordh b{flex:1;font-weight:700}
-#orl{max-height:min(38vh,260px);overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px}
+#orl{max-height:min(38vh,260px);overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 #orl li{display:flex;align-items:baseline;gap:6px;list-style:none;font-size:13px;line-height:1.7}
 #orl .on{flex:none;min-width:20px;font-weight:700}
 #orl .ot{flex:1;min-width:0}
@@ -300,9 +302,9 @@ function renderOrd(pop){const U=UI[L],el=$('ord');
   if(!ORD.length){el.classList.remove('open','pop');document.querySelectorAll('.added').forEach(b=>b.classList.remove('added'));return}
   const wasHidden=!el.classList.contains('open');
   el.classList.add('open');
-  if(wasHidden&&!reduceMotion()){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),460)}
+  if(wasHidden&&!reduceMotion()){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),620)}
   $('ordt').textContent=U.ordt;
-  $('orl').innerHTML=ORD.map((x,i)=>`<li><span class="on">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span><button class="fbt" data-inc="${i}" type="button" aria-label="${U.ordinc}"></button><button class="fbt" data-del="${i}" type="button" aria-label="${U.orddel}">−</button></li>`).join('');
+  $('orl').innerHTML=ORD.map((x,i)=>`<li style="--i:${i}"><span class="on">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span><button class="fbt" data-inc="${i}" type="button" aria-label="${U.ordinc}"></button><button class="fbt" data-del="${i}" type="button" aria-label="${U.orddel}">−</button></li>`).join('');
   $('ordsum').textContent=U.ordsum.replace('{n}',fa(ordCount())).replace('{s}',num(ordSum()));
   $('ordcp').textContent=U.ordcp;$('ordwa').textContent=U.ordwa;$('ordcl').textContent=U.ordcl;$('ordnote').textContent=U.ordnote;$('ordta').placeholder=U.ordph;
   if(pop&&navigator.vibrate)try{navigator.vibrate(8)}catch(e){}}
@@ -415,6 +417,12 @@ document.addEventListener('click',e=>{
   const it=e.target.closest('.it.pick,.fc.pick');if(it&&!e.target.closest('.fbt')){
     if(e.target.closest('a[href]'))return;
     tapFx(it);addFromEl(it);return}
+  // پرش نرم از لینک‌های بخش «ویژه‌های موزه» (به‌جای پرش ناگهانی و آبی‌شدن لینک)
+  const anc=e.target.closest('a[href^="#"]');if(anc){const idd=anc.getAttribute('href').slice(1);if(!idd)return;
+    const tg=document.getElementById(idd);if(tg){e.preventDefault();
+      tg.scrollIntoView({behavior:reduceMotion()?'auto':'smooth',block:'start'});
+      history.replaceState(null,'',anc.getAttribute('href'));
+      if(navigator.vibrate)try{navigator.vibrate(8)}catch(x){}}}
   if(e.target.closest('#ordcp')){copyOrd();return}
   if(e.target.closest('#ordwa')){waOrd();return}
   if(e.target.closest('#ordcl')){ORD=[];saveOrd();$('ordta').value='';renderOrd();return}
