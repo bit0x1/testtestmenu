@@ -11,6 +11,12 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#3b0a0e;--ink:#cfeaf7;--soft:#a9cfe0;--card:#4a1216;--line:#cfeaf755}}
 :root[data-theme="dark"]{--bg:#3b0a0e;--ink:#cfeaf7;--soft:#a9cfe0;--card:#4a1216;--line:#cfeaf755}
 *{box-sizing:border-box}
+/* فرم‌ها (جستجو، یادداشت سفارش) رنگ تم را می‌گیرند تا هیچ کادر سفیدی روی قیمت‌ها نماند */
+input,textarea,select{-webkit-appearance:none;appearance:none;color-scheme:light}
+input[type=search]{background:var(--card);color:var(--ink)}
+input::-webkit-search-cancel-button{filter:invert(35%) sepia(60%) saturate(900%) hue-rotate(315deg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) input,:root:not([data-theme="light"]) textarea,:root:not([data-theme="light"]) select{color-scheme:dark}}
+:root[data-theme="dark"] input,:root[data-theme="dark"] textarea,:root[data-theme="dark"] select{color-scheme:dark}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 112px);scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif;line-height:1.9}
 .f{font-family:'Aref Ruqaa','Noto Naskh Arabic',serif}
@@ -171,13 +177,19 @@ html[lang=en] .badge{font-family:system-ui,sans-serif;font-size:10px;border-radi
 .fbt[data-inc]:hover{background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5v14M5 12h14' stroke='%23000' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/13px 13px no-repeat}
 .fbt:active{transform:scale(.86)}
 @media (hover:none){.fbt{width:32px;height:32px;font-size:19px}}
-#ord{position:fixed;left:14px;right:14px;bottom:14px;z-index:20;max-width:520px;margin:0 auto;padding:11px 14px 12px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:22px 8px;box-shadow:0 10px 30px rgba(0,0,0,.22);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;transform:translateY(calc(100% + 26px));opacity:0;pointer-events:none;visibility:hidden;transition:transform .55s cubic-bezier(.22,.9,.24,1),opacity .4s ease,visibility 0s linear .55s}
+#ord{position:fixed;left:14px;right:14px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:20;max-width:520px;margin:0 auto;padding:11px 14px 12px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:22px 8px;box-shadow:0 10px 30px rgba(0,0,0,.22);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;transform:translateY(calc(100% + 26px));opacity:0;pointer-events:none;visibility:hidden;transition:transform .55s cubic-bezier(.22,.9,.24,1),opacity .4s ease,visibility 0s linear .55s}
 #ord.open{transform:none;opacity:1;pointer-events:auto;visibility:visible;transition:transform .55s cubic-bezier(.22,.9,.24,1),opacity .4s ease,visibility 0s}
 #ord.pop{animation:ordpop .6s cubic-bezier(.22,.9,.24,1)}
 @keyframes ordpop{from{transform:translateY(14px)}to{transform:none}}
+/* نوار جمع سفارش: با زیاد شدن آیتم‌ها صفحه بلند نمی‌شود؛ لیست کشویی (آکاردئونی) است */
+#cbar{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:21;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:20px 8px;box-shadow:0 8px 24px rgba(0,0,0,.2);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .3s,visibility 0s}
+#cbar.hide{opacity:0;visibility:hidden;pointer-events:none}
+#cbar b{flex:1;text-align:start;line-height:1.5;font-weight:700}
+#cbar i{font-style:normal;flex:none;color:var(--soft);font-size:15px;line-height:1}
+@media (min-width:1000px){#ord{bottom:calc(70px + env(safe-area-inset-bottom,0px))}}
 #orl li{animation:ordli .45s cubic-bezier(.22,.9,.24,1) both;animation-delay:calc(var(--i,0)*65ms)}
 @keyframes ordli{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#ord,#orl li{transition:none;animation:none;transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){#ord,#orl li,#cbar{transition:none;animation:none;transform:none;opacity:1}}
 #ordh{display:flex;align-items:center;gap:8px;font-family:'Aref Ruqaa',serif;font-size:19px;margin-bottom:6px}
 #ordh b{flex:1;font-weight:700}
 #orl{max-height:min(38vh,260px);overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
@@ -194,7 +206,7 @@ html[lang=en] .badge{font-family:system-ui,sans-serif;font-size:10px;border-radi
 #ordsum{margin-inline-end:auto;font-weight:700}
 #ordnote{flex:1 1 100%;margin:0;font-size:11.5px;color:var(--soft);line-height:1.6}
 #ord textarea{width:100%;margin-top:6px;padding:7px 10px;border:1.5px solid var(--line);border-radius:12px 5px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px;resize:vertical}
-@media print{#ord{display:none!important}}
+@media print{#ord,#cbar{display:none!important}}
 .it.sp:before{content:"";position:absolute;inset-inline-start:-17px;top:17px;width:12px;height:12px;background:var(--ink);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat}
 .st{display:inline-block;width:12px;height:12px;background:var(--ink);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat}
 .lgd{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin:12px 2px 0}
@@ -279,7 +291,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dotted var(
 <path d="M111 96V82a9 9 0 0 1 18 0V96"/><path d="M108 56H132M108 66H112M128 66H132"/><path d="M24 66H94M146 66H216" stroke-dasharray="1 4"/>
 <circle cx="120" cy="36" r="10.5"/><path d="M120 27.5v2M120 42.5v2M111.5 36h2M126.5 36h2" stroke-width="1"/>
 <line id="hh" x1="120" y1="36" x2="120" y2="31" stroke-width="1.8"/><line id="mh" x1="120" y1="36" x2="120" y2="29" stroke-width="1.2"/><line id="shd" x1="120" y1="38" x2="120" y2="28.5" stroke-width=".6"/><circle cx="120" cy="36" r="1" fill="currentColor"/>
-</svg><div id="ord"><div id="ordh"><b id="ordt"></b><button id="ordx" type="button" aria-label="بستن">✕</button></div><ul id="orl"></ul><div id="ordf"><span id="ordsum"></span><button id="ordcp" type="button"></button><button id="ordwa" type="button"></button><button id="ordclr" type="button"></button><button id="ordcl" type="button"></button></div><p id="ordnote"></p><textarea id="ordta" rows="2" hidden></textarea></div><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
+</svg><div id="cbar" class="hide" role="button" tabindex="0" aria-expanded="false"><b id="cbt"></b><i id="cbi">▴</i></div><div id="ord"><div id="ordh"><b id="ordt"></b><button id="ordx" type="button" aria-label="بستن">✕</button></div><ul id="orl"></ul><div id="ordf"><span id="ordsum"></span><button id="ordcp" type="button"></button><button id="ordclr" type="button"></button><button id="ordcl" type="button"></button></div><p id="ordnote"></p><textarea id="ordta" rows="2" hidden></textarea></div><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
 <script>
 const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 // item: [name, desc, price | [[label,price],...]]
@@ -310,16 +322,22 @@ function addOrd(o){o.q=(o.q||0)+1;ORD.push(o);saveOrd();renderOrd(true)}
 // یک‌بار اضافه شدن با لمس؛ تعداد زیاد شد → کلیک روی عدد همان ردیف یکی کم می‌کند (حذف دکمهٔ «+» از لیست)
 function addOrMerge(k,t,te,l,le,p){const ex=ORD.find(x=>x.k===k&&x.l===(l||''));if(ex)ex.q=(ex.q||1)+1;else ORD.push({k:k,t:t,te:te,l:l||'',le:le||'',p:p,q:1});saveOrd();renderOrd(true)}
 const reduceMotion=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+let ORDOPEN=false;
 function renderOrd(pop){const U=UI[L],el=$('ord');
-  if(!ORD.length){el.classList.remove('open','pop');document.querySelectorAll('.added').forEach(b=>b.classList.remove('added'));return}
+  if(!ORD.length){ORDOPEN=false;el.classList.remove('open','pop');document.querySelectorAll('.added').forEach(b=>b.classList.remove('added'));
+    const br=$('cbar');if(br){br.classList.add('hide');br.setAttribute('aria-expanded','false')}return}
+  const sumTxt=U.ordsum.replace('{n}',fa(ordCount())).replace('{s}',num(ordSum()));
+  const br=$('cbar');
+  if(br){br.classList.remove('hide');br.querySelector('#cbt').textContent=sumTxt;
+    br.querySelector('#cbi').textContent=ORDOPEN?'▾':'▴';br.setAttribute('aria-expanded',ORDOPEN?'true':'false')}
   const wasHidden=!el.classList.contains('open');
-  el.classList.add('open');
-  if(wasHidden&&!reduceMotion()){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),620)}
+  el.classList.toggle('open',ORDOPEN);
+  if(ORDOPEN&&wasHidden&&!reduceMotion()){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),620)}
   $('ordt').textContent=U.ordt;
   $('orl').innerHTML=ORD.map((x,i)=>`<li style="--i:${i}"><span class="on" data-qty="${i}" role="button" tabindex="0" title="${U.orddel}" aria-label="${U.orddel}">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span></li>`).join('');
   $('ordsum').textContent=U.ordsum.replace('{n}',fa(ordCount())).replace('{s}',num(ordSum()));
   const cb=$('ordclr');if(cb){cb.hidden=!ORD.length;cb.textContent=U.ordclr}
-  $('ordcp').textContent=U.ordcp;$('ordwa').textContent=U.ordwa;$('ordcl').textContent=U.ordcl;$('ordnote').textContent=U.ordnote;$('ordta').placeholder=U.ordph;
+  $('ordcp').textContent=U.ordcp;$('ordcl').textContent=U.ordcl;$('ordnote').textContent=U.ordnote;$('ordta').placeholder=U.ordph;
   if(pop&&navigator.vibrate)try{navigator.vibrate(8)}catch(e){}}
 function ordText(){const en=L==='en';let s=en?'Order · Café Muzeh\n':'سفارش · کافه موزه\n';
   ORD.forEach(x=>{s+=`• ${x.q}× ${en?x.te||x.t:x.t}${x.le?` (${x.le})`:x.l?` (${x.l})`:''}`;if(x.p)s+=en?` — ${x.p*1000} T`: ` — ${x.p*1000} تومان`;s+='\n'});
@@ -329,7 +347,6 @@ async function copyOrd(){const t=ordText();let ok=false;
   try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);ok=true}}catch(e){}
   if(!ok){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(e){}}
   if(ok){$('ordcp').textContent=UI[L].orddone;if(navigator.vibrate)try{navigator.vibrate([10,50,10])}catch(e){}setTimeout(()=>{$('ordcp').textContent=UI[L].ordcp},1600)}}
-function waOrd(){window.open('https://wa.me/'+String(CONTACT.phone||'').replace(/^0/,'98').replace(/\D/g,'')+'?text='+encodeURIComponent(ordText()),'_blank','noopener')}
 const TAG={veg:['گیاهی','Vegetarian'],spicy:['تند','Spicy']};
 const tgs=t=>(t||'').split(/[,|،\s]+/).filter(x=>TAG[x.toLowerCase()]).map(x=>`<span class="bd tg">${TAG[x.toLowerCase()][L==='fa'?0:1]}</span>`).join('');
 // ===== اطلاعات تماس: هر خانه‌ای که پر شود در پایین صفحه نشان داده می‌شود / Fill any field to show it in the footer =====
@@ -350,8 +367,8 @@ function renderContact(){const c=CONTACT,en=L==='en',ad=en?(c.address_en||c.addr
   if(c.phone)b.push(`<a href="tel:${c.phone}">${en?'Call':'تماس'}</a>`);
   if(c.instagram)b.push(`<a href="https://instagram.com/${c.instagram.replace(/^@/,'')}" target="_blank" rel="noopener">${en?'Instagram':'اینستاگرام'}</a>`);
   $('ct').innerHTML=(ad||hr||b.length)?`${ad?`<p>${ad}</p>`:''}${hr?`<p>${hr}</p>`:''}<div class="cb">${b.join('')}</div>`:''}
-const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده',tdy:'پیشنهاد امروز',add:'افزودن به سفارش',ordt:'سفارش شما',ordsum:'{n} قلم · جمع {s}',ordcp:'کپی سفارش',ordwa:'ارسال با واتساپ',ordcl:'پاک کردن',orddone:'کپی شد ✓',ordnote:'این لیست فقط در گوشی شما ذخیره می‌شود و برای ما ارسال نمی‌گردد. کپی کنید و برای کافه بفرستید.',ordph:'یادداشت (کم‌قند، بدون پیاز…)',ordclr:'خالی کردن لیست',orddel:'حذف یک عدد',ordinc:'افزودن یکی دیگر'},
-en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out',tdy:"Today's pick",add:'Add to order',ordt:'Your order',ordsum:'{n} items · total {s}',ordcp:'Copy order',ordwa:'Send via WhatsApp',ordcl:'Clear',orddone:'Copied ✓',ordnote:'This list is saved only on your device and is not sent anywhere. Copy it and send it to the café.',ordph:'Note (less sugar, no onion…)',ordclr:'Clear list',orddel:'Remove one',ordinc:'Add one more'}};
+const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده',tdy:'پیشنهاد امروز',add:'افزودن به سفارش',ordt:'سفارش شما',ordsum:'{n} قلم · جمع {s}',ordcp:'کپی سفارش',ordcl:'پاک کردن',orddone:'کپی شد ✓',ordnote:'این لیست فقط در گوشی شما ذخیره می‌شود.',ordph:'یادداشت (کم‌قند، بدون پیاز…)',ordclr:'خالی کردن لیست',orddel:'حذف یک عدد',ordinc:'افزودن یکی دیگر'},
+en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out',tdy:"Today's pick",add:'Add to order',ordt:'Your order',ordsum:'{n} items · total {s}',ordcp:'Copy order',ordcl:'Clear',orddone:'Copied ✓',ordnote:'This list is saved only on your device.',ordph:'Note (less sugar, no onion…)',ordclr:'Clear list',orddel:'Remove one',ordinc:'Add one more'}};
 let L='fa';try{L=localStorage.getItem('lang')||'fa'}catch(e){}
 const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const num=n=>L==='fa'?fa(n):String(n);
@@ -433,8 +450,8 @@ document.addEventListener('click',e=>{
       tg.scrollIntoView({behavior:reduceMotion()?'auto':'smooth',block:'start'});
       history.replaceState(null,'',anc.getAttribute('href'));
       if(navigator.vibrate)try{navigator.vibrate(8)}catch(x){}}}
+  if(e.target.closest('#cbar')){ORDOPEN=!ORDOPEN;renderOrd();if(navigator.vibrate)try{navigator.vibrate(6)}catch(x){}return}
   if(e.target.closest('#ordcp')){copyOrd();return}
-  if(e.target.closest('#ordwa')){waOrd();return}
   if(e.target.closest('#ordclr')){if(!ORD.length)return;if(!confirm(UI[L].ordclr+'؟'))return;ORD=[];saveOrd();$('ordta').value='';try{localStorage.removeItem('ordAt')}catch(e){}renderOrd();return}
   if(e.target.closest('#ordcl')){ORD=[];saveOrd();$('ordta').value='';renderOrd();return}
   if(e.target.closest('#ordx')){$('ord').classList.remove('open','pop');return}
@@ -442,6 +459,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;
   const qy=e.target.closest('[data-qty]');if(qy){e.preventDefault();qy.click();return}
   const el=e.target.closest('.it.pick[role="button"],.fc.pick,.p.pick');if(!el)return;e.preventDefault();addFromEl(el)});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.id==='cbar'){e.preventDefault();ORDOPEN=!ORDOPEN;renderOrd()}});
 $('ordta').addEventListener('input',()=>{try{localStorage.setItem('ordnote',$('ordta').value)}catch(e){}});
 try{$('ordta').value=localStorage.getItem('ordnote')||''}catch(e){}
 
