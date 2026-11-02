@@ -102,7 +102,7 @@ section#a:before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns=%27http
 .it>div{min-width:0}
 nav a{white-space:nowrap}
 @supports not ((mask-image:url(a)) or (-webkit-mask-image:url(a))){section:before,header:before{display:none!important}}
-@media print{nav,.lg,.search,.fe{display:none!important}.rv{opacity:1!important;transform:none!important}:root{--bg:#fff}}
+@media print{nav,.lg,.search,.fe,#ord,.fbt{display:none!important}.rv{opacity:1!important;transform:none!important}:root{--bg:#fff}}
 
 nav a{position:relative;z-index:1;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:color .25s,transform .18s cubic-bezier(.3,1.6,.5,1)}
 nav a:active{transform:scale(.92);background:none;color:var(--ink)}
@@ -151,6 +151,34 @@ html[lang=en] #clh{font-family:system-ui,sans-serif}
 .meta .seal{margin:0;width:32px;height:32px;font-size:9.5px}
 html[lang=en] .meta .seal{font-size:8.5px}
 .it.sp{position:relative}
+.it.pick{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.it.pick>div,.it.pick .p,.it.pick .ps,.it.pick .dots{pointer-events:none}
+.it.sel{outline:2px dotted var(--ink);outline-offset:3px;border-radius:12px 4px}
+.badge{display:inline-block;font-family:'Vazirmatn',Tahoma,sans-serif;font-size:10.5px;font-weight:700;line-height:1;padding:4px 9px;margin-inline-start:8px;vertical-align:middle;border:1.5px solid var(--ink);border-radius:12px 4px;color:var(--bg);background:var(--ink)}
+html[lang=en] .badge{font-family:system-ui,sans-serif;font-size:10px;border-radius:4px 12px}
+.fc.today{border:1.5px solid var(--ink);box-shadow:inset 0 0 0 3px var(--bg),inset 0 0 0 4.5px var(--line)}
+.fc small{display:block}
+.fbt{flex:none;display:inline-grid;place-content:center;width:26px;height:26px;margin-inline-start:8px;padding:0;border:1.5px solid var(--ink);border-radius:50%;background:none;color:var(--ink);font:inherit;font-size:17px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .18s,background .2s}
+.fbt:hover{background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.fbt:active{transform:scale(.86)}
+.fbt.added{background:var(--ink);color:var(--bg)}
+@media (hover:none){.fbt{width:32px;height:32px;font-size:19px}}
+#ord{position:fixed;left:14px;right:14px;bottom:14px;z-index:20;max-width:520px;margin:0 auto;padding:11px 14px 12px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:22px 8px;box-shadow:0 10px 30px rgba(0,0,0,.22);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px}
+#ord.hide{display:none}
+#ordh{display:flex;align-items:center;gap:8px;font-family:'Aref Ruqaa',serif;font-size:19px;margin-bottom:6px}
+#ordh b{flex:1;font-weight:700}
+#orl{max-height:min(38vh,260px);overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px}
+#orl li{display:flex;align-items:baseline;gap:6px;list-style:none;font-size:13px;line-height:1.7}
+#orl .on{flex:none;min-width:20px;font-weight:700}
+#orl .ot{flex:1;min-width:0}
+#orl .od{flex:none;white-space:nowrap;font-family:'Aref Ruqaa',serif;font-size:15px}
+#ordf{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+#ordf button{font:inherit;font-size:12px;padding:3px 12px;border:1.5px solid var(--ink);border-radius:14px 5px;background:none;color:var(--ink);cursor:pointer}
+#ordf button:active{background:var(--ink);color:var(--bg)}
+#ordsum{margin-inline-end:auto;font-weight:700}
+#ordnote{flex:1 1 100%;margin:0;font-size:11.5px;color:var(--soft);line-height:1.6}
+#ord textarea{width:100%;margin-top:6px;padding:7px 10px;border:1.5px solid var(--line);border-radius:12px 5px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px;resize:vertical}
+@media print{#ord{display:none!important}}
 .it.sp:before{content:"";position:absolute;inset-inline-start:-17px;top:17px;width:12px;height:12px;background:var(--ink);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat}
 .st{display:inline-block;width:12px;height:12px;background:var(--ink);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27/%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 transform=%27rotate%2845 12 12%29%27/%3E%3C/svg%3E") center/contain no-repeat}
 .lgd{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--soft);margin:12px 2px 0}
@@ -191,7 +219,10 @@ html[lang=en] .meta .seal{font-size:8.5px}
  nav a[href="#a"]{--ic:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2752 0 56 28%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%271.4%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M66 15H94C94 22 89 26 80 26C71 26 66 22 66 15Z%27/%3E%3Cpath d=%27M64 15H96%27/%3E%3Cpath d=%27M78 15L91 4%27/%3E%3Ccircle cx=%2792.5%27 cy=%272.8%27 r=%271.8%27/%3E%3C/svg%3E")}
  nav>a:first-of-type,nav>a:last-of-type{margin-inline:0}
  .fr{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:visible;padding:8px 0 16px}
- .fc{width:auto;min-width:0}
+ .fc{width:auto;min-width:0;display:flex;flex-direction:column}
+.fc .fbt{align-self:flex-start;margin-top:6px}
+.fc .fbt::before{content:""}
+.fc .fbt.added::before{content:"✓"}
  .search{max-width:none;display:block;margin:18px 0 0}
  .lgd{justify-content:flex-start}
  .it .n{font-size:23px}.it .d{font-size:13.5px}.p{font-size:24px}
@@ -233,7 +264,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dotted var(
 <path d="M111 96V82a9 9 0 0 1 18 0V96"/><path d="M108 56H132M108 66H112M128 66H132"/><path d="M24 66H94M146 66H216" stroke-dasharray="1 4"/>
 <circle cx="120" cy="36" r="10.5"/><path d="M120 27.5v2M120 42.5v2M111.5 36h2M126.5 36h2" stroke-width="1"/>
 <line id="hh" x1="120" y1="36" x2="120" y2="31" stroke-width="1.8"/><line id="mh" x1="120" y1="36" x2="120" y2="29" stroke-width="1.2"/><line id="shd" x1="120" y1="38" x2="120" y2="28.5" stroke-width=".6"/><circle cx="120" cy="36" r="1" fill="currentColor"/>
-</svg><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
+</svg><div id="ord" class="hide"><div id="ordh"><b id="ordt"></b><button id="ordx" type="button" aria-label="بستن">✕</button></div><ul id="orl"></ul><div id="ordf"><span id="ordsum"></span><button id="ordcp" type="button"></button><button id="ordwa" type="button"></button><button id="ordcl" type="button"></button></div><p id="ordnote"></p><textarea id="ordta" rows="2" hidden></textarea></div><div id="clk" class="f"></div><div id="clh"></div><div id="ct"></div><span id="bye">نوش جان</span><small id="fn">قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است</small></footer>
 <script>
 const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 // item: [name, desc, price | [[label,price],...]]
@@ -241,6 +272,36 @@ const M=[{"id":"b","t":"صبحانه","s":"سرو صبحانه از ساعت ۸ 
 const EN={"b":{"t":"Breakfast","s":"Breakfast is served from 8:00 am to 12:30 pm","i":[["Fried eggs & Siahmazgi cheese","with sides"],["Omelette & Siahmazgi cheese","with sides"],["Museum traditional omelette","seasoned tomato purée, with sides"],["Shapouri omelette",""],["Toast with fried egg & cheese","fruit salad and juice"],["Grilled cheese",""],["Sausage & eggs, plain",""],["Sausage & eggs, tomato-paste style",""],["Traditional breakfast","butter, jam, cream, honey, cheese, walnuts and omelette / fried egg"],["Western breakfast","ham & gouda toast, baked beans, fried egg and juice"],["Chicken plate","grilled chicken fillet, mushroom sauce, baked potato and honey fried egg"],["Bean stew plate",""],["Date Khagineh","eggs with butter, dates, walnuts, cinnamon, date syrup and raw sesame"],["Lentil plate",""],["Breakfast tea","with a breakfast order"]]},"k":{"t":"Cakes & Sweets","s":"","i":[["Reshteh-khoshkar","Gilan pastry"],["Cocoa walnut cookie",""],["Chocolate cake",""],["Carrot walnut cake",""],["Cake of the day","ask us"]]},"f":{"t":"Meals","s":"Special lunch dishes will be added soon","i":[["White soup","barley, milk, chicken, carrot"],["Red soup","Pomodoro: local tomato purée"],["French fries & cheddar dip",""],["Caesar salad","romaine, house dressing, Siahmazgi cheese powder, croutons, balsamic, grilled chicken"],["Garden salad","romaine, house dressing, Siahmazgi cheese powder, croutons, balsamic"],["Pasta with mushroom sauce & chicken",""],["Lasagna","homemade béchamel, minced beef, mushroom, bell pepper, pizza cheese, in a homemade tomato sauce"],["Pirashki","meat and mushroom, with chopped parsley and barberry sauce"],["Chicken sandwich","ciabatta, seasoned sun-dried tomato, parsley, grilled chicken breast, cheese dip"],["Shami meat wrap","seasoned meat with pomegranate sauce, onion and parsley, with handmade tanoori bread baked in the Muzeh kitchen"],["Crispy potato kuku","homemade, with traditional bread and sides"],["Homemade cutlet","with traditional bread and sides"],["Abdoogh-khiar","cold yogurt soup with cucumber, a traditional dining experience"],["Roasted eggplant bowl","with kashk and pomegranate sauce, roochineh (tabeeg), walnuts, spring onion, fried onion and fresh herbs"],["Ash-e Muzeh","a recipe from a grandmother in eastern Gilan"]]},"e":{"t":"Coffee","s":"","c":["Lower caffeine","Higher caffeine"],"i":[["Espresso","double shot"],["Americano","double-shot espresso, 170 cc water at 85°C"],["Cappuccino","single-shot espresso, milk steamed to 75°C, milk foam"],["Cortado","double-shot espresso, milk steamed to 75°C"],["Latte","double-shot espresso, milk steamed to 75°C, milk foam"],["Romano","double-shot espresso and lemon"],["Mocha","double-shot espresso, milk steamed to 75°C, milk foam and chocolate sauce"],["Caramel Macchiato","double-shot espresso, milk steamed to 75°C, milk foam, caramel / vanilla syrup"]]},"d":{"t":"Brewed Coffee","s":"","i":[["Turkish",""],["Greek","Turkish coffee with milk"],["Dami (brewed)",""],["Dami with milk",""],["Irani","pure ground coffee with cardamom, saffron, milk and honey"]]},"s":{"t":"Iced Coffee","s":"","c":["Arabica blend","Arabica-Robusta"],"i":[["Iced Americano","double-shot espresso, 180 cc water with ice"],["Iced Americano with lemon",""],["Iced latte","double-shot espresso, milk and ice"],["Honey iced latte","double-shot espresso, milk, honey and ice"],["Syrup iced latte","vanilla / caramel / hazelnut / coconut / cinnamon"],["Iced mocha","double-shot espresso, milk, ice and chocolate sauce"],["Iced caramel macchiato","double-shot espresso, milk, ice and caramel / vanilla syrup"],["Affogato","espresso and ice cream"]]},"h":{"t":"Hot Drinks","s":"","i":[["Hot chocolate",""],["Flavored hot chocolate","hazelnut / coconut / caramel / vanilla / cinnamon"],["Hot milk",""],["Honey milk",""],["Cocoa milk","hot or cold"],["Saffron hot milk","hot milk, saffron, cardamom, cinnamon and saffron syrup"],["English tea","black tea, milk, vanilla syrup (hot / iced)"],["Masala chai",""]]},"t":{"t":"Tea & Herbal Infusions","s":"","i":[["Brewed black tea","whole leaf / broken, from the tea gardens of Gilan, with sweets and rock candy"],["Brewed black tea with dates",""],["Muzeh tea","saffron, cardamom, cinnamon and more"],["Sour cherry tea",""],["Green tea & cinnamon",""],["Hibiscus & rose petal tea",""],["Quince tea",""],["Apple & cinnamon tea",""],["Mountain tea, thyme, pennyroyal & honey",""],["Fruit tea",""],["White tea & bitter orange blossom",""],["Quince-lime & lavender",""],["Borage & valerian",""],["Chamomile, mint, lemon & honey",""],["Ginseng, ginger, shahdaneh & honey",""]]},"m":{"t":"Cold Drinks & Smoothies","s":"","i":[["Fresh juice",""],["Tart juice",""],["Banana milk",""],["Lemonade",""],["Mojito","classic / smoothie"],["Muzeh mojito","classic mojito + pineapple pieces + coconut syrup"],["Yakh dar Behesht (traditional)","\"ice in paradise\""],["Smoothie of the day","strawberry / mango"],["Watermelon / cantaloupe smoothie",""],["Lavashak smoothie",""],["Ginger, apple & lime smoothie",""],["Aloe vera, apple & lime smoothie",""],["Mango, banana & coconut smoothie",""]]},"n":{"t":"Traditional Cold Drinks","s":"","i":[["Doogh Muzeh","yogurt drink"],["Khakshir & rose water",""],["Verjuice drink",""],["Cucumber, mint & sekanjabin",""],["Cucumber, apple & darar",""],["Rose, mint & willow-flower distillate",""],["Watermelon, rose water & basil seeds",""],["Hibiscus & valerian distillate",""],["Borage, lime & dog-rose distillate",""],["Saffron sharbat",""]]},"sh":{"t":"Shakes & Ice Cream","s":"","i":[["Vanilla shake",""],["Chocolate shake",""],["Cerelac & biscuit shake",""],["Arde (tahini) shake",""],["Traditional shake",""],["Nescafé & peanut butter shake",""],["Strawberry shake",""],["Banana chocolate shake",""],["Banana coconut shake",""],["Coffee walnut shake",""],["Nutella hazelnut shake",""],["Lotus shake",""],["Traditional ice cream",""]]},"a":{"t":"Add-ons","s":"","i":[["Honey",""],["Cheddar dip",""],["Homemade pickles",""],["Syrup","caramel / vanilla / hazelnut / coconut / cinnamon / Irish and more"],["Caesar dressing",""],["Mineral water",""],["Soft drink",""],["Non-dairy milk",""]]}};
 let FEN=[['Ash-e Muzeh','a grandmother\'s recipe from eastern Gilan'],['Muzeh Traditional Omelette','with seasoned tomato purée'],['Shami Meat Wrap','with handmade tanoori bread'],['Muzeh Tea','saffron, cardamom, cinnamon & more'],['Muzeh Mojito','pineapple pieces & coconut syrup'],['Doogh Muzeh','traditional cold drink']];
 const LBL={'متوسط':'Medium','بزرگ':'Large','دو تکه':'2 pcs','چهار تکه':'4 pcs'};
+// ===== پیشنهاد امروز · الگوریتم انتخاب: چرخش روزانه (وزیت/خاور‌شمار) روی آیتم‌های «موزه‌ای» که موجود و دارای قیمت‌اند =====
+const hashStr=s=>{let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0};
+const firstPrice=p=>Array.isArray(p)?firstPrice(p[0]&&p[0][1]):(typeof p==='number'?p:0);
+function dailyPick(){const sd=(()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(new Date()).replace(/-/g,'')}catch(e){const d=new Date();return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')}})();
+  const c=[];M.forEach(s=>s.i.forEach((it,j)=>{if(it[3])return;if(!/موزه/.test(it[0]))return;if(!firstPrice(it[2]))return;c.push({id:s.id,j})}));if(!c.length)return null;return c[hashStr(sd+'|'+c.map(x=>x.id+x.j).join('-'))%c.length]}
+let TODAY=dailyPick();
+// ===== سبد سفارش مشتری · ذخیره محلی، بدون سرور / customer order cart, stored locally =====
+let ORD=[];try{ORD=JSON.parse(localStorage.getItem('ord')||'[]')}catch(e){ORD=[]}
+if(!Array.isArray(ORD))ORD=[];
+const saveOrd=()=>{try{localStorage.setItem('ord',JSON.stringify(ORD))}catch(e){}};
+const ordCount=()=>ORD.reduce((a,x)=>a+(x.q||1),0);
+const ordSum=()=>ORD.reduce((a,x)=>a+(x.p||0)*(x.q||1),0);
+function addOrd(o){o.q=(o.q||0)+1;ORD.push(o);saveOrd();renderOrd(true)}
+function renderOrd(pop){const U=UI[L],el=$('ord');
+  if(!ORD.length){el.classList.add('hide');document.querySelectorAll('.fbt').forEach(b=>{b.classList.remove('added');b.textContent='+'});return}
+  el.classList.remove('hide');$('ordt').textContent=U.ordt;
+  $('orl').innerHTML=ORD.map((x,i)=>`<li><span class="on">${fa(x.q)}</span><span class="ot">${x.t}${x.l?` <small>· ${x.l}</small>`:''}</span><span class="od">${num(x.p*x.q)}</span><button class="fbt" data-del="${i}" type="button" aria-label="${U.orddel}">−</button></li>`).join('');
+  $('ordsum').textContent=U.ordsum.replace('{n}',fa(ordCount())).replace('{s}',num(ordSum()));
+  $('ordcp').textContent=U.ordcp;$('ordwa').textContent=U.ordwa;$('ordcl').textContent=U.ordcl;$('ordnote').textContent=U.ordnote;$('ordta').placeholder=U.ordph;
+  document.querySelectorAll('.fbt[data-add]').forEach(b=>{const k=b.dataset.add;if(ORD.some(x=>x.k===k))b.classList.add('added')});
+  if(pop&&navigator.vibrate)try{navigator.vibrate(8)}catch(e){}}
+function ordText(){const en=L==='en';let s=en?'Order · Café Muzeh\n':'سفارش · کافه موزه\n';
+  ORD.forEach(x=>{s+=`• ${x.q}× ${en?x.te||x.t:x.t}${x.le?` (${x.le})`:x.l?` (${x.l})`:''}`;if(x.p)s+=en?` — ${x.p*1000} T`: ` — ${x.p*1000} تومان`;s+='\n'});
+  const n=$('ordta').value.trim();if(n)s+=(en?'Note: ':'یادداشت: ')+n+'\n';
+  return s+(en?`Total: ${ordSum()*1000} T\n`:`جمع: ${num(ordSum())} هزار تومان\n`)+(CONTACT.phone?`☎ ${CONTACT.phone}\n`:'')}
+async function copyOrd(){const t=ordText();let ok=false;
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);ok=true}}catch(e){}
+  if(!ok){try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(e){}}
+  if(ok){$('ordcp').textContent=UI[L].orddone;if(navigator.vibrate)try{navigator.vibrate([10,50,10])}catch(e){}setTimeout(()=>{$('ordcp').textContent=UI[L].ordcp},1600)}}
+function waOrd(){window.open('https://wa.me/'+String(CONTACT.phone||'').replace(/^0/,'98').replace(/\D/g,'')+'?text='+encodeURIComponent(ordText()),'_blank','noopener')}
 const TAG={veg:['گیاهی','Vegetarian'],spicy:['تند','Spicy']};
 const tgs=t=>(t||'').split(/[,|،\s]+/).filter(x=>TAG[x.toLowerCase()]).map(x=>`<span class="bd tg">${TAG[x.toLowerCase()][L==='fa'?0:1]}</span>`).join('');
 // ===== اطلاعات تماس: هر خانه‌ای که پر شود در پایین صفحه نشان داده می‌شود / Fill any field to show it in the footer =====
@@ -261,14 +322,16 @@ function renderContact(){const c=CONTACT,en=L==='en',ad=en?(c.address_en||c.addr
   if(c.phone)b.push(`<a href="tel:${c.phone}">${en?'Call':'تماس'}</a>`);
   if(c.instagram)b.push(`<a href="https://instagram.com/${c.instagram.replace(/^@/,'')}" target="_blank" rel="noopener">${en?'Instagram':'اینستاگرام'}</a>`);
   $('ct').innerHTML=(ad||hr||b.length)?`${ad?`<p>${ad}</p>`:''}${hr?`<p>${hr}</p>`:''}<div class="cb">${b.join('')}</div>`:''}
-const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده'},
-en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out'}};
+const UI={fa:{note:'لطفاً از بازارکافه در طبقه همکف دیدن فرمایید',sub:'لطفاً از آوردن و مصرف خوراکی و نوشیدنی به داخل کافه خودداری فرمایید · مالیات بر ارزش افزوده محاسبه نمی‌شود',feh:'ویژه‌های موزه',lgdt:'ویژه‌ی موزه',lgds:'خانگی',q:'جستجو در منو…',bye:'نوش جان',fn:'قیمت‌ها به هزار تومان · حداقل زمان آماده‌سازی خوراک‌ها ۲۵ دقیقه است',btn:'EN',mt:'کافه موزه رشت',v:'ویژه موزه',h:'خانگی',s:'تمام شده',tdy:'پیشنهاد امروز',add:'افزودن به سفارش',ordt:'سفارش شما',ordsum:'{n} قلم · جمع {s}',ordcp:'کپی سفارش',ordwa:'ارسال با واتساپ',ordcl:'پاک کردن',orddone:'کپی شد ✓',ordnote:'این لیست فقط در گوشی شما ذخیره می‌شود و برای ما ارسال نمی‌گردد. کپی کنید و برای کافه بفرستید.',ordph:'یادداشت (کم‌قند، بدون پیاز…)',orddel:'حذف یک عدد'},
+en:{note:'Please visit the Bazaar Café on the ground floor',sub:'Outside food and drinks are not permitted in the café · VAT is not added to prices',feh:'Muzeh Specials',lgdt:'Muzeh special',lgds:'Homemade',q:'Search the menu…',bye:'Bon appétit',fn:'Prices in thousand tomans · Meals take at least 25 minutes to prepare',btn:'فارسی',mt:'Café Muzeh Rasht',v:'Muzeh Special',h:'Homemade',s:'Sold out',tdy:"Today's pick",add:'Add to order',ordt:'Your order',ordsum:'{n} items · total {s}',ordcp:'Copy order',ordwa:'Send via WhatsApp',ordcl:'Clear',orddone:'Copied ✓',ordnote:'This list is saved only on your device and is not sent anywhere. Copy it and send it to the café.',ordph:'Note (less sugar, no onion…)',orddel:'Remove one'}};
 let L='fa';try{L=localStorage.getItem('lang')||'fa'}catch(e){}
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const num=n=>L==='fa'?fa(n):String(n);
-const price=p=>{if(p==='')return'';
-  if(!Array.isArray(p))return`<span class="p">${num(p)}</span>`;
+const price=(p,d)=>{if(p==='')return'';
+  const U=UI[L];
+  if(!Array.isArray(p))return`<button type="button" class="p pick" data-k="${d.k}" data-p="${p}" data-t="${esc(d.N)}" data-te="${esc(d.Ne)}" title="${U.add}" aria-label="${U.add}">${num(p)}</button>`;
   const two=p.length>1&&!p[0][0];
-  return`<span class="ps">${p.map(([l,v])=>`<span class="p${two?' w':''}">${l?`<i>${L==='fa'?l:LBL[l]}</i>`:''}${num(v)}</span>`).join('')}</span>`};
+  return`<span class="ps">${p.map(([l,v])=>`<button type="button" class="p${two?' w':''}${v?' pick':''}"${v?` data-k="${d.k}" data-p="${v}" data-l="${l?esc(L==='fa'?l:LBL[l]||l):''}" data-le="${l?esc(LBL[l]||l):''}" data-t="${esc(d.N)}" data-te="${esc(d.Ne)}" title="${U.add}" aria-label="${U.add}"`:''}>${l?`<i>${L==='fa'?l:LBL[l]}</i>`:''}${num(v)}</button>`).join('')}</span>`};
 const nav=document.getElementById('nav'),menu=document.getElementById('menu'),$=id=>document.getElementById(id);
 const HAS_IO='IntersectionObserver' in window;
 const io=HAS_IO?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08}):{observe:e=>e.classList.add('in')};
@@ -301,11 +364,15 @@ function render(){
   M.forEach(s=>{const e=EN[s.id],en=L==='en';
     const T=en?e.t:s.t,S=en?e.s:s.s,C=en?e.c:s.c;
     nav.insertAdjacentHTML('beforeend',`<a href="#${s.id}">${T}</a>`);
-    menu.insertAdjacentHTML('beforeend',`<section id="${s.id}" class="rv"><h2>${T}</h2>${S?`<p class="tag">${S}</p>`:''}${C&&C.length?`<div class="cols">${C.map(c=>`<span>${c}</span>`).join('')}</div>`:''}${s.i.map(([n,d,p,so,tg],j)=>{const N=en?e.i[j][0]:n,D=en?e.i[j][1]:d;
+    menu.insertAdjacentHTML('beforeend',`<section id="${s.id}" class="rv"><h2>${T}</h2>${S?`<p class="tag">${S}</p>`:''}${C&&C.length?`<div class="cols">${C.map(c=>`<span>${c}</span>`).join('')}</div>`:''}${s.i.map(([n,d,p,so,tg],j)=>{const N=en?e.i[j][0]:n,D=en?e.i[j][1]:d,K=s.id+':'+j;
       const sp=/موزه/.test(n),bd=/خانگی|دست‌ساز/.test(n+d)?`<span class="seal" role="img" aria-label="${U.h}" title="${U.h}"></span>`:'';
-      const MT=(sp?`<span class="seal v" role="img" aria-label="${U.v}" title="${U.v}"></span>`:'')+bd+(so?`<span class="bd">${U.s}</span>`:'')+tgs(tg);
-      return`<div class="it${sp?' sp':''}"><div><span class="n">${N}${MT}</span>${D?`<span class="d">${D}</span>`:''}</div>${p===''?'':'<span class="dots"></span>'}${price(p)}</div>`}).join('')}</section>`)});
-  $('fr').innerHTML=FE.map(([n,d,p,id],j)=>`<a class="fc" href="#${id}"><b>${L==='fa'?n:FEN[j][0]}</b><small>${L==='fa'?d:FEN[j][1]}</small><span>${num(p)}</span></a>`).join('');
+      const td=!!(TODAY&&TODAY.id===s.id&&TODAY.j===j),MT=(sp?`<span class="seal v" role="img" aria-label="${U.v}" title="${U.v}"></span>`:'')+bd+(so?`<span class="bd">${U.s}</span>`:'')+tgs(tg)+(td?`<span class="badge">${U.tdy}</span>`:'');
+      return`<div class="it${sp?' sp':''}${so||p===''?'':' pick'}"${td?' data-today="1"':''}${so||p===''?'':` data-k="${K}" data-p="${firstPrice(p)}" data-t="${esc(N)}" data-te="${esc(en?N:e.i[j][0])}" role="button" tabindex="0" aria-label="${U.add}"`}><div><span class="n">${N}${MT}</span>${D?`<span class="d">${D}</span>`:''}</div>${p===''?'':'<span class="dots"></span>'}${price(p,{k:K,N:N,Ne:en?N:e.i[j][0]})}<button type="button" class="fbt" data-add="${K}" data-p="${firstPrice(p)}" data-t="${esc(N)}" data-te="${esc(en?N:e.i[j][0])}" aria-label="${U.add}"${so?' disabled':''}>+</button></div>`}).join('')}</section>`)});
+  $('fr').innerHTML=FE.map(([n,d,p,id],j)=>{const f=M.map(s=>s.i.map((it,k)=>[it,s.id,k])).flat().find(x=>x[0][0]===n);
+    const K=f?f[1]+':'+f[2]:id+':-1',td=!!(f&&TODAY&&TODAY.id===f[1]&&TODAY.j===f[2]),pr=f?firstPrice(f[0][2]):p;
+    return`<div class="fc${td?' today':''}"><a href="#${id}"${td?' data-today="1"':''}><b>${L==='fa'?n:FEN[j][0]}${td?` <span class="badge">${U.tdy}</span>`:''}</b><small>${L==='fa'?d:FEN[j][1]}</small><span>${num(p)}</span></a><button type="button" class="fbt" data-add="${K}" data-p="${pr||p}" data-t="${esc(n)}" data-te="${esc(FEN[j]?FEN[j][0]:n)}" aria-label="${U.add}">+</button></div>`}).join('');
+  document.querySelectorAll('.it.pick[data-today],.fc.today a').forEach(el=>el.classList.add('sel'));
+  renderOrd();
   document.querySelectorAll('section,.fe').forEach(el=>{el.classList.add('rv');io.observe(el)});
   renderContact();$('clh').textContent=L==='fa'?'ساعت را لمس کن':'Tap the clock';$('tower').setAttribute('aria-label',L==='fa'?'ساعت شهرداری رشت':'Rasht municipality clock tower');clockTick();setSpy();nav.scrollLeft=0;document.querySelectorAll('.lgb').forEach(b=>b.setAttribute('aria-label',L==='fa'?'Switch to English':'تغییر به فارسی'));nav.setAttribute('aria-label',L==='fa'?'دسته‌بندی منو':'Menu categories');
 }
@@ -314,6 +381,29 @@ document.querySelectorAll('.lgb').forEach(b=>b.onclick=()=>{L=L==='fa'?'en':'fa'
 $('q').addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase();
   document.querySelectorAll('.it').forEach(el=>el.classList.toggle('hide',!!v&&!el.textContent.toLowerCase().includes(v)));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('hide',!!v&&!s.querySelector('.it:not(.hide)')))});
+
+// ===== سبد سفارش · رویدادها / order cart events =====
+function addFromEl(b){const p=+b.dataset.p;if(!p)return;
+  const k=b.dataset.k||'',ex=ORD.find(x=>x.k===k&&x.l===(b.dataset.l||''));
+  if(ex)ex.q=(ex.q||1)+1;else ORD.push({k:k,t:b.dataset.t||'',te:b.dataset.te||'',l:b.dataset.l||'',le:b.dataset.le||'',p:p,q:1});
+  saveOrd();renderOrd(true)}
+document.addEventListener('click',e=>{
+  const del=e.target.closest('.fbt[data-del]');if(del){const i=+del.dataset.del,x=ORD[i];if(!x)return;
+    x.q--;if(x.q<=0)ORD.splice(i,1);saveOrd();renderOrd();return}
+  const b=e.target.closest('.fbt[data-add]');if(b){if(!b.disabled)addFromEl(b);return}
+  const pk=e.target.closest('.p.pick');if(pk){addFromEl(pk);return}
+  const it=e.target.closest('.it.pick');if(it&&!e.target.closest('.fbt,.p')){addFromEl(it);
+    document.querySelectorAll('.it.sel').forEach(x=>x.classList.remove('sel'));it.classList.add('sel');
+    setTimeout(()=>{if(!it.hasAttribute('data-today'))it.classList.remove('sel')},1400);return}
+  if(e.target.closest('#ordcp')){copyOrd();return}
+  if(e.target.closest('#ordwa')){waOrd();return}
+  if(e.target.closest('#ordcl')){ORD=[];saveOrd();$('ordta').value='';renderOrd();return}
+  if(e.target.closest('#ordx')){$('ord').classList.add('hide');return}
+  if(e.target.closest('#ordsum')){const ta=$('ordta');ta.hidden=!ta.hidden;if(!ta.hidden)ta.focus();return}});
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;
+  const el=e.target.closest('.it.pick[role="button"],.p.pick');if(!el)return;e.preventDefault();addFromEl(el)});
+$('ordta').addEventListener('input',()=>{try{localStorage.setItem('ordnote',$('ordta').value)}catch(e){}});
+try{$('ordta').value=localStorage.getItem('ordnote')||''}catch(e){}
 
 // ===== Google Sheet / Excel link =====
 // 1) Upload menu-data.xlsx to Google Sheets  2) File > Share > Publish to web > choose the "menu" tab + CSV  3) paste the link below.const SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vSO11P7ViuJEUiE6ysAJV8MRdE67ZF1cylqV4ByFjTwtyHTmrg5huOwmINHB820S9bBTLWPoRHi5-Oh/pub?gid=930174820&single=true&output=csv';
@@ -339,11 +429,15 @@ function applyRows(rows){
     EN[s.id].i=rs.map(r=>[r.name_en||r.name_fa,r.desc_en||''])});
   const fe=R.filter(r=>r.featured.toLowerCase()==='yes'&&r.available.toLowerCase()==='yes'&&latin(r.price));
   if(fe.length){FE=fe.map(r=>[r.name_fa,r.desc_fa,+latin(r.price),r.section]);FEN=fe.map(r=>[r.name_en||r.name_fa,r.desc_en||''])}
+  TODAY=dailyPick();
   return true}
 async function loadSheet(){if(!SHEET_CSV)return;
   try{const r=await fetch(SHEET_CSV+(SHEET_CSV.includes('?')?'&':'?')+'t='+Date.now());
     if(r.ok&&applyRows(parseCSV(await r.text())))render()}catch(e){}}
 render();loadSheet();
+// ===== کشایه‌ی محلی منو (کارکرد آفلاین بعد از اولین باز شدن) / offline cache of the sheet =====
+if('serviceWorker' in navigator&&navigator.serviceWorker&&navigator.serviceWorker.register){
+  try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}}
 $('tower').addEventListener('click',spin);
 $('tower').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();spin()}});
 setInterval(clockTick,1000);
