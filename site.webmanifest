@@ -1,0 +1,17 @@
+{
+  "name": "منوی کافه موزه رشت",
+  "short_name": "کافه موزه",
+  "description": "منوی کافه موزه رشت · Café Muzeh Rasht menu",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#c9e8f5",
+  "theme_color": "#5c0f14",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
